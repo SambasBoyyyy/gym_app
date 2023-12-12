@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gym_app/pages/goal.dart';
-import 'package:gym_app/pages/stats/text.dart';
+import 'package:gym_app/provider/ProteinListProvider.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]);
-  runApp(const MyApp());
+  runApp( ChangeNotifierProvider(
+      create: (context) => ProteinListProvider(),
+      child: MyApp()
+  ));
 }
 
 class MyApp extends StatelessWidget {

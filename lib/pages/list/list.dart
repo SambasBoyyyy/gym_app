@@ -1,12 +1,8 @@
-import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart' show rootBundle;
 import 'package:google_fonts/google_fonts.dart';
-
-import '../../models/protien_model.dart';
-
+import 'package:gym_app/provider/ProteinListProvider.dart';
+import 'package:provider/provider.dart';
 import '../stats/Stats.dart';
 import '../goal.dart';
 import '../target.dart';
@@ -22,37 +18,7 @@ class Protien_list extends StatefulWidget {
 }
 
 class _ListState extends State<Protien_list> {
-  List<ProteinSource> proteinSources = [];
-  List<ProteinSource> selectedProteinSources = [];
-  String selectedCategory = 'raw'; // Default category selection
 
-  void parseProteinSources(String jsonStr) {
-    List<dynamic> jsonList = json.decode(jsonStr);
-    proteinSources = jsonList.map((json) => ProteinSource.fromJson(json)).toList();
-    updateSelectedProteinSources(selectedCategory);
-  }
-
-  void updateSelectedProteinSources(String category) {
-    setState(() {
-      selectedCategory = category;
-      selectedProteinSources =
-          proteinSources.where((source) => source.category == category).toList();
-    });
-  }
-
-  Future<void> loadJsonAsset() async {
-    final String jsonString = await rootBundle.loadString('assets/protein_sources.json');
-    setState(() {
-      parseProteinSources(jsonString);
-    });
-    //print(proteinSources.toString());
-  }
-
-  @override
-  void initState() {
-    loadJsonAsset();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -91,7 +57,6 @@ class _ListState extends State<Protien_list> {
 
               ),
             ),
-
             IconButton(
               enableFeedback: false,
               onPressed: () {
@@ -124,74 +89,89 @@ class _ListState extends State<Protien_list> {
         ),
       ),
       body:Center(
-        child: Container(
-          width: 340,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 60,),
+        child: Consumer<ProteinListProvider>(
+    builder: (context, listProvider, child) {
+      return Container(
+        width: 340,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: 60,),
 
-              Text('Food Category',style: GoogleFonts.inter(fontSize: 32,fontWeight: FontWeight.w700,color: Color(0xff4581DC))),
-              SizedBox(height: 30,),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
+            Text('Food Category', style: GoogleFonts.inter(fontSize: 32,
+                fontWeight: FontWeight.w700,
+                color: Color(0xff4581DC))),
+            SizedBox(height: 30,),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
 
-                children: [
-                  ChoiceChip(
-                    // backgroundColor: Color(0xffE8E8E8),
-                    disabledColor: Color(0xffE8E8E8),
-                    selectedColor: Color(0xffE1E6F2),
-                    label: Text('Raw',style: GoogleFonts.inter(fontSize: 12,fontWeight: FontWeight.w700,color:Colors.black )),
-                    selected: selectedCategory == 'raw',
-                    onSelected: (isSelected) {
-                      updateSelectedProteinSources('raw');
-                    },
+              children: [
+                ChoiceChip(
+                  // backgroundColor: Color(0xffE8E8E8),
+                  disabledColor: Color(0xffE8E8E8),
+                  selectedColor: Color(0xffE1E6F2),
+                  label: Text('Raw', style: GoogleFonts.inter(fontSize: 12,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.black)),
+                  selected: listProvider.selectedCategory == 'raw',
+                  onSelected: (isSelected) {
+                    listProvider.updateSelectedProteinSources('raw');
+                  },
 
 
-                  ),
-                  SizedBox(width: 18,),
-                  ChoiceChip(
-                    disabledColor: Color(0xffE8E8E8),
-                    selectedColor: Color(0xffE1E6F2),
-                    label: Text('Cooked',style: GoogleFonts.inter(fontSize: 12,fontWeight: FontWeight.w700,color:Colors.black )),
-                    selected: selectedCategory == 'cooked',
-                    onSelected: (isSelected) {
-                      updateSelectedProteinSources('cooked');
-                    },
-                  ),
-                  SizedBox(width: 18,),
-                  ChoiceChip(
-                    disabledColor: Color(0xffE8E8E8),
-                    selectedColor: Color(0xffE1E6F2),
-                    label: Text('Other',style: GoogleFonts.inter(fontSize: 12,fontWeight: FontWeight.w800,color:Colors.black )),
-                    selected: selectedCategory == 'other',
-                    onSelected: (isSelected) {
-                      updateSelectedProteinSources('other');
-                    },
-                  ),
-                ],
-              ),
-
-              Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Text('Select Foods For Today',style: GoogleFonts.inter(fontSize: 18,fontWeight: FontWeight.w700,color:Color(0xFF4C7CC5))),
-              ),
-
-              Expanded(
-                child: ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  itemCount: selectedProteinSources.length,
-                  itemBuilder: (context, index) {
-                    final source = selectedProteinSources[index];
-                    return PopularCard(source: source);
+                ),
+                SizedBox(width: 18,),
+                ChoiceChip(
+                  disabledColor: Color(0xffE8E8E8),
+                  selectedColor: Color(0xffE1E6F2),
+                  label: Text('Cooked', style: GoogleFonts.inter(fontSize: 12,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.black)),
+                  selected: listProvider.selectedCategory == 'cooked',
+                  onSelected: (isSelected) {
+                    listProvider.updateSelectedProteinSources('cooked');
                   },
                 ),
+                SizedBox(width: 18,),
+                ChoiceChip(
+                  disabledColor: Color(0xffE8E8E8),
+                  selectedColor: Color(0xffE1E6F2),
+                  label: Text('Other', style: GoogleFonts.inter(fontSize: 12,
+                      fontWeight: FontWeight.w800,
+                      color: Colors.black)),
+                  selected: listProvider.selectedCategory == 'other',
+                  onSelected: (isSelected) {
+                    listProvider.updateSelectedProteinSources('other');
+                  },
+                ),
+              ],
+            ),
+
+            Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Text('Select Foods For Today', style: GoogleFonts.inter(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w700,
+                  color: Color(0xFF4C7CC5))),
+            ),
+
+            Expanded(
+              child: ListView.builder(
+                scrollDirection: Axis.vertical,
+                itemCount: listProvider.getFilteredProteinSources().length,
+                itemBuilder: (context, index) {
+                  final source = listProvider.getFilteredProteinSources()[index];
+                  return PopularCard(source: source);
+                },
               ),
+            ),
 
 
-            ],
-          ),
+          ],
+        ),
+      );
+    }
         ),
       ),
 

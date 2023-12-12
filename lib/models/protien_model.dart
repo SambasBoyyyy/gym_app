@@ -4,13 +4,17 @@ class ProteinSource {
   String? weight;
   String? totalProtein;
   int? totalCalories;
+  bool? isSelected;
+  double? quantity;
 
   ProteinSource(
       {this.category,
         this.name,
         this.weight,
         this.totalProtein,
-        this.totalCalories});
+        this.totalCalories,
+        this.isSelected,
+        this.quantity});
 
   ProteinSource.fromJson(Map<String, dynamic> json) {
     category = json['category'];
@@ -20,6 +24,8 @@ class ProteinSource {
     totalCalories =  json['total_calories'] is String
         ? int.tryParse(json['total_calories']!)
         : json['total_calories'];
+    isSelected = false;
+    quantity=0;
   }
 
   Map<String, dynamic> toJson() {
@@ -29,6 +35,7 @@ class ProteinSource {
     data['weight'] = this.weight;
     data['total_protein'] = this.totalProtein;
     data['total_calories'] = this.totalCalories;
+    // isSelected = this.isSelected;
     return data;
   }
 }

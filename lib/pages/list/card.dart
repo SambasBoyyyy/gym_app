@@ -4,14 +4,79 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../models/protien_model.dart';
 
-
-class PopularCard extends StatelessWidget {
+class PopularCard extends StatefulWidget {
   final ProteinSource source;
   const PopularCard({Key? key, required this.source}) : super(key: key);
+
+  @override
+  State<PopularCard> createState() => _PopularCardState();
+}
+
+class _PopularCardState extends State<PopularCard> {
+  @override
+  void initState() {
+    print(widget.source.isSelected);
+    super.initState();
+  }
+  void _showUpdateQuantityDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        double? newQuantity = widget.source.quantity; // Initialize with current quantity
+        return AlertDialog(
+          title: Text('Quantity'),
+          content: TextField(
+            keyboardType: TextInputType.number,
+            decoration: InputDecoration(hintText: 'Enter new quantity'),
+            onChanged: (value) {
+              newQuantity = double.tryParse(value);
+            },
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                // Update quantity when the 'Update' button is pressed
+                setState(() {
+                  if (newQuantity != null) {
+                    widget.source.quantity = newQuantity!;
+                    widget.source.isSelected = !widget.source.isSelected!;
+                  }
+                });
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              child: Text('OK'),
+            ),
+            TextButton(
+              onPressed: () {
+                // Update quantity when the 'Update' button is pressed
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              child: Text('Cancel'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return
-      Padding(
+    return InkWell(
+      onTap: () {
+        if(widget.source.isSelected==true){
+          setState(() {
+
+              widget.source.quantity = 0;
+              widget.source.isSelected = !widget.source.isSelected!;
+
+          });
+        }
+        else{
+          _showUpdateQuantityDialog(context);
+        }
+
+      },
+      child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Center(
           child: Container(
@@ -20,7 +85,11 @@ class PopularCard extends StatelessWidget {
             // color: Colors.black,
             decoration: BoxDecoration(
               border: Border.all(
-                color: Colors.white, // Set your desired border color here
+                color: widget.source.isSelected != null
+                    ? widget.source.isSelected!
+                    ? Colors.green
+                    : Colors.white
+                    : Colors.red, // Set your desired border color here
                 width: 2, // Set the border width
               ),
               borderRadius: BorderRadius.circular(22),
@@ -41,8 +110,22 @@ class PopularCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("${source.name}",style: GoogleFonts.poppins(fontSize: 12,fontWeight: FontWeight.w600,color: Color(0xff1D1617))),
-                    Text('${source.weight} | ${source.totalProtein} Protein | ${source.totalCalories}Cal',style: GoogleFonts.poppins(fontSize: 10,fontWeight: FontWeight.normal,color: Color(0xff7B6F72)),)
+                    Text(
+                      "${widget.source.name}",
+                      style: GoogleFonts.poppins(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                        color: Color(0xff1D1617),
+                      ),
+                    ),
+                    Text(
+                      '${widget.source.weight} | ${widget.source.totalProtein} Protein | ${widget.source.totalCalories}Cal',
+                      style: GoogleFonts.poppins(
+                        fontSize: 10,
+                        fontWeight: FontWeight.normal,
+                        color: Color(0xff7B6F72),
+                      ),
+                    )
                   ],
                 ),
                 Container(
@@ -51,18 +134,25 @@ class PopularCard extends StatelessWidget {
                   decoration: ShapeDecoration(
                     color: Color(0xffF3F3F3),
                     shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16)
+                      borderRadius: BorderRadius.circular(16),
                     ),
                   ),
                   child: Center(
-                      child:Text('0gm',style: GoogleFonts.poppins(fontSize: 16,fontWeight: FontWeight.bold,color: Color(0xff318D35)),)
+                    child: Text(
+                      '${widget.source.quantity} gm',
+                      style: GoogleFonts.poppins(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xff318D35),
+                      ),
+                    ),
                   ),
                 )
               ],
             ),
           ),
         ),
-      );
-
+      ),
+    );
   }
 }
