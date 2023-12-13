@@ -1,7 +1,7 @@
 class ProteinSource {
   String? category;
   String? name;
-  String? weight;
+  int? weight;
   String? totalProtein;
   int? totalCalories;
   bool? isSelected;

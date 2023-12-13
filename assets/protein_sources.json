@@ -2,154 +2,154 @@
   {
     "category": "raw",
     "name": "Chicken Breast (Boneless)",
-    "weight": "100g",
+    "weight": 100,
     "total_protein": "22g",
     "total_calories": 165
   },
   {
     "category": "raw",
     "name": "Chicken (Thigh+Drumstick)",
-    "weight": "100g",
+    "weight": 100,
     "total_protein": "19g",
     "total_calories": 190
   },
   {
     "category": "raw",
     "name": "Beef (Lean)",
-    "weight": "100g",
+    "weight": 100,
     "total_protein": "20g",
     "total_calories": 250
   },
   {
     "category": "raw",
     "name": "Fish (Sea)",
-    "weight": "100g",
+    "weight": 100,
     "total_protein": "20g",
     "total_calories": 115
   },
   {
     "category": "raw",
     "name": "Fish (River)",
-    "weight": "100g",
+    "weight": 100,
     "total_protein": "15g",
     "total_calories": 125
   },
   {
     "category": "raw",
     "name": "Bombay Duck (Loitta)",
-    "weight": "100g",
+    "weight": 100,
     "total_protein": "25g",
     "total_calories": 120
   },
   {
     "category": "raw",
     "name": "Shrimp (Head / Tail Less)",
-    "weight": "100g",
+    "weight": 100,
     "total_protein": "20g",
     "total_calories": 99
   },
   {
     "category": "raw",
     "name": "Mutton / Lamb",
-    "weight": "100g",
+    "weight": 100,
     "total_protein": "20g",
     "total_calories": 260
   },
   {
     "category": "cooked",
     "name": "Chicken Breast (Boneless)",
-    "weight": "100g",
+    "weight": 100,
     "total_protein": "31g",
     "total_calories": 170
   },
   {
     "category": "cooked",
     "name": "Chicken (Thigh+Drumstick)",
-    "weight": "100g",
+    "weight": 100,
     "total_protein": "25g",
     "total_calories": 195
   },
   {
     "category": "cooked",
     "name": "Beef (Lean)",
-    "weight": "100g",
+    "weight": 100,
     "total_protein": "35g",
     "total_calories": 260
   },
   {
     "category": "cooked",
     "name": "Fish (Sea)",
-    "weight": "100g",
+    "weight": 100,
     "total_protein": "22g",
     "total_calories": 125
   },
   {
     "category": "cooked",
     "name": "Fish (River)",
-    "weight": "100g",
+    "weight": 100,
     "total_protein": "17g",
     "total_calories": 135
   },
   {
     "category": "cooked",
     "name": "Bombay Duck (Loitta Shutki)",
-    "weight": "100g",
+    "weight": 100,
     "total_protein": "62g",
     "total_calories": 300
   },
   {
     "category": "cooked",
     "name": "Shrimp (Head / Tail Less)",
-    "weight": "100g",
+    "weight": 100,
     "total_protein": "24g",
     "total_calories": 110
   },
   {
     "category": "cooked",
     "name": "Mutton / Lamb",
-    "weight": "100g",
+    "weight": 100,
     "total_protein": "28g",
     "total_calories": 270
   },
   {
     "category": "other",
     "name": "Egg",
-    "weight": "1pc",
+    "weight": 1,
     "total_protein": "6g",
     "total_calories": 70
   },
   {
     "category": "other",
     "name": "Egg White",
-    "weight": "--",
+    "weight": 1,
     "total_protein": "2.5g",
     "total_calories": 12
   },
   {
     "category": "other",
     "name": "Yolk",
-    "weight": "--",
+    "weight": 1,
     "total_protein": "3.5G",
     "total_calories": 45
   },
   {
     "category": "other",
     "name": "Soya Beans",
-    "weight": "100g",
+    "weight": 100,
     "total_protein": "18g",
     "total_calories": 175
   },
   {
     "category": "other",
     "name": "Mixed Lentils",
-    "weight": "100g",
+    "weight": 100,
     "total_protein": "20g",
     "total_calories": 355
   },
   {
     "category": "other",
     "name": "Whey Protein Isolate",
-    "weight": "30g",
+    "weight": 30,
     "total_protein": "25g",
     "total_calories": 120
   }

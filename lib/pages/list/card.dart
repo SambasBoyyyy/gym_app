@@ -22,14 +22,18 @@ class _PopularCardState extends State<PopularCard> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        double? newQuantity = widget.source.quantity; // Initialize with current quantity
+        double? newQuantity = widget.source.quantity;
+        String quantityText = widget.source.quantity!.toStringAsFixed(2);// Initialize with current quantity
         return AlertDialog(
           title: Text('Quantity'),
           content: TextField(
             keyboardType: TextInputType.number,
             decoration: InputDecoration(hintText: 'Enter new quantity'),
             onChanged: (value) {
-              newQuantity = double.tryParse(value);
+              double? newQuantity = double.tryParse(value);
+              if (newQuantity != null) {
+                quantityText = newQuantity.toStringAsFixed(1);
+              }
             },
           ),
           actions: <Widget>[
@@ -37,8 +41,8 @@ class _PopularCardState extends State<PopularCard> {
               onPressed: () {
                 // Update quantity when the 'Update' button is pressed
                 setState(() {
-                  if (newQuantity != null) {
-                    widget.source.quantity = newQuantity!;
+                  if (newQuantity != null && double.parse(quantityText)<1000) {
+                    widget.source.quantity = double.parse(quantityText);
                     widget.source.isSelected = !widget.source.isSelected!;
                   }
                 });
@@ -129,7 +133,7 @@ class _PopularCardState extends State<PopularCard> {
                   ],
                 ),
                 Container(
-                  width: 91,
+                  width: 94,
                   height: 36,
                   decoration: ShapeDecoration(
                     color: Color(0xffF3F3F3),

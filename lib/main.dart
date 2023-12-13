@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gym_app/pages/goal.dart';
 import 'package:gym_app/provider/ProteinListProvider.dart';
+import 'package:gym_app/provider/targetProvider.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -9,10 +10,17 @@ void main() {
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]);
-  runApp( ChangeNotifierProvider(
-      create: (context) => ProteinListProvider(),
-      child: MyApp()
-  ));
+  runApp(
+      MultiProvider(
+          providers: [
+          ChangeNotifierProvider(create: (_)=>ProteinListProvider()),
+            ChangeNotifierProvider(create: (_)=>TargetProvider()),
+         ],
+          child: MyApp(),
+      ),
+
+
+  );
 }
 
 class MyApp extends StatelessWidget {
