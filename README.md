@@ -1,6 +1,7 @@
-# gym_app
+# Gym_App
 
 A new Flutter project.
+![App](https://github.com/SambasBoyyyy/gym_app/blob/main/assets/app_presentation.png)
 
 ## Getting Started
 
